@@ -62,7 +62,10 @@ export default {
   padding: 10px;
   text-align: center;
 }
-
+a {
+  text-decoration: none;
+  color: black;
+}
 a:hover .post-content,
 a:active .post-content {
   background-color: #ccc;
