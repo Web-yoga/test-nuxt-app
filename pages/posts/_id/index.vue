@@ -1,12 +1,14 @@
 <template>
   <div class="single-post-page">
     <section class="post">
-      <h1 class="post-title">Title of the post</h1>
+      <h1 class="post-title">{{ loadedPost.title }}</h1>
       <div class="post-details">
-        <div class="post-detail">Post detail 1</div>
-        <div class="post-detail">Post detail 2</div>
+        <div class="post-detail">
+          Last updated on {{ loadedPost.updatedDate }}
+        </div>
+        <div class="post-detail">Written by {{ loadedPost.author }}</div>
       </div>
-      <p class="post-content">Content of the post</p>
+      <p class="post-content">{{ loadedPost.content }}</p>
     </section>
     <section class="post-feedback">
       <p>
@@ -16,6 +18,25 @@
     </section>
   </div>
 </template>
+
+<script>
+export default {
+  async asyncData({ params }) {
+    return {
+      loadedPost: {
+        id: "1",
+        title: "Alexaned Post (ID: " + params.id + " )",
+        content: "Super Post content",
+        previewText: "preview text of post",
+        author: "Alexxander",
+        updatedDate: new Date(),
+        thumbnail:
+          "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+      },
+    };
+  },
+};
+</script>
 <style scoped>
 .single-post-page {
   padding: 30px;
