@@ -53,8 +53,9 @@ export default {
   },
   methods: {
     onSave() {
-      //Save the post
-      console.log(this.editedPost);
+      //TODO Validate data
+      //custom event for handle save data
+      this.$emit("submit", this.editedPost);
     },
     onCancel() {
       //Navigate Back
