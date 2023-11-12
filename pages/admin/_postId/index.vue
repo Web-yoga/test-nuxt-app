@@ -14,16 +14,20 @@ export default {
   components: {
     AdminPostForm,
   },
-  data() {
-    return {
-      loadedPost: {
-        author: "Alexander",
-        title: "My awesome Post",
-        content: "Super amazing!!!",
-        thumbnailLink:
-          "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      },
-    };
+  async asyncData({ $axios, params }) {
+    //firebase request have to end by '.json'
+    return $axios
+      .get(
+        "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+          params.postId +
+          ".json"
+      )
+      .then((res) => {
+        return {
+          loadedPost: res.data,
+        };
+      })
+      .catch((e) => context.error(e));
   },
 };
 </script>
