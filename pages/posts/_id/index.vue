@@ -21,19 +21,22 @@
 
 <script>
 export default {
-  async asyncData({ params }) {
-    return {
-      loadedPost: {
-        id: "1",
-        title: "Alexaned Post (ID: " + params.id + " )",
-        content: "Super Post content",
-        previewText: "preview text of post",
-        author: "Alexxander",
-        updatedDate: new Date(),
-        thumbnail:
-          "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      },
-    };
+  // asyncData(context);  context = { $axios, params, ... }
+  // https://v2.nuxt.com/docs/internals-glossary/context/#params
+  async asyncData({ $axios, params }) {
+    //firebase request have to end by '.json'
+    return $axios
+      .get(
+        "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+          params.id +
+          ".json"
+      )
+      .then((res) => {
+        return {
+          loadedPost: res.data,
+        };
+      })
+      .catch((e) => context.error(e));
   },
 };
 </script>

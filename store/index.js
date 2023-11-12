@@ -12,37 +12,17 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
-        return new Promise((resolve, reject) => {
-          setTimeout(() => {
-            vuexContext.commit("setPosts", [
-				{
-					id: "1",
-					title: "Alexaned Post 1",
-					content: "Super Post content",
-					previewText: "preview text of post",
-					thumbnail:
-					  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-				  },
-				  {
-					id: "2",
-					title: "Alexaned Post 2",
-					content: "Super Post content",
-					previewText: "preview text of post",
-					thumbnail:
-					  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-				  },
-				  {
-					id: "3",
-					title: "Alexaned Post 3",
-					content: "Super Post content",
-					previewText: "preview text of post",
-					thumbnail:
-					  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-				  },
-            ]);
-            resolve();
-          }, 1000);
-        });
+        return this.$axios.get('https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json')
+		.then(res => {
+			// From firebase come object => transform to array
+			//also add id
+			const pastsArray = []
+			for( const key in res.data){
+				pastsArray.push({ ...res.data[key], id: key })
+			}
+			vuexContext.commit('setPosts', pastsArray)
+		})
+		.catch(e => context.error(e));
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
