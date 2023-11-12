@@ -1,7 +1,7 @@
 <template>
   <div class="admin-post-page">
     <section class="update-form">
-      <AdminPostForm :post="loadedPost" />
+      <AdminPostForm :post="loadedPost" @submit="onSubmitted" />
     </section>
   </div>
 </template>
@@ -28,6 +28,22 @@ export default {
         };
       })
       .catch((e) => context.error(e));
+  },
+  methods: {
+    onSubmitted(editedPost) {
+      $axios
+        .put(
+          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+            params.postId +
+            ".json"
+        )
+        .then((res) => {
+          return {
+            loadedPost: res.data,
+          };
+        })
+        .catch((e) => context.error(e));
+    },
   },
 };
 </script>
