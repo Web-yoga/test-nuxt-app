@@ -16,14 +16,10 @@ export default {
   },
   methods: {
     onSubmitted(postData) {
-      //Add update Date to the post Data and send to farebase
-      this.$axios
-        .post(
-          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json",
-          { ...postData, updatedDate: new Date() }
-        )
-        .then((result) => console.log(result))
-        .catch((e) => console.log(e));
+      //Add Date to the post Data and send to farebase
+      this.$store.dispatch("addPost", postData).then(() => {
+        this.$router.push("/admin");
+      });
     },
   },
 };

@@ -8,7 +8,14 @@ const createStore = () => {
     mutations: {
       setPosts(state, posts) {
         state.loadedPosts = posts;
-      }
+      },
+	  addPost(state, post){
+		state.loadedPosts.push(post)
+	  },
+	  editPost(state, editedPost){
+		const postIndex = state.loadedPosts.findIndex(post => post.id === editedPost.id);
+		state.loadedPosts[postIndex] = editedPost
+	  },
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
@@ -26,7 +33,38 @@ const createStore = () => {
       },
       setPosts(vuexContext, posts) {
         vuexContext.commit("setPosts", posts);
-      }
+      },
+	  addPost(vuexContext, postData) {
+		const createdPost = {
+			...postData,
+			updatedDate: new Date()
+		}
+		return this.$axios
+        .post(
+          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json",
+          createdPost
+        )
+        .then((result) => {
+			//id - берем из результата записи в бд (name возвращаемое firebase) и добавляем в store
+			vuexContext.commit('addPost', {...createdPost, id: result.data.name})
+        })
+        .catch((e) => console.log(e));
+	  },
+	  editPost(vuexContext, editedPost) {
+      // this.$axios - т.к. код выполняется на клиенте
+      return this.$axios
+        .put(
+          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+		  editedPost.id +
+            ".json",
+          editedPost
+        )
+        .then((res) => {
+			vuexContext.commit('editPost', editedPost)
+        })
+        // context.error(e) - не можем показать 404 т.к. это запускается на клиенте
+        .catch((e) => console.log(e));
+	  },
     },
     getters: {
       loadedPosts(state) {

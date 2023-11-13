@@ -23,26 +23,18 @@ export default {
           ".json"
       )
       .then((res) => {
+        // Add ID from firebase for feture updates
         return {
-          loadedPost: res.data,
+          loadedPost: { ...res.data, id: params.postId },
         };
       })
       .catch((e) => context.error(e));
   },
   methods: {
     onSubmitted(editedPost) {
-      $axios
-        .put(
-          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
-            params.postId +
-            ".json"
-        )
-        .then((res) => {
-          return {
-            loadedPost: res.data,
-          };
-        })
-        .catch((e) => context.error(e));
+      this.$store.dispatch("editPost", editedPost).then(() => {
+        this.$router.push("/admin");
+      });
     },
   },
 };
