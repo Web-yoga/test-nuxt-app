@@ -19,7 +19,7 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
-        return this.$axios.get('https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json')
+        return this.$axios.get(process.env.baseUrl + '/posts.json')
 		.then(res => {
 			// From firebase come object => transform to array
 			//also add id
@@ -41,7 +41,7 @@ const createStore = () => {
 		}
 		return this.$axios
         .post(
-          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json",
+			process.env.baseUrl + "/posts.json",
           createdPost
         )
         .then((result) => {
@@ -54,7 +54,7 @@ const createStore = () => {
       // this.$axios - т.к. код выполняется на клиенте
       return this.$axios
         .put(
-          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+          process.env.baseUrl + "/posts/" +
 		  editedPost.id +
             ".json",
           editedPost

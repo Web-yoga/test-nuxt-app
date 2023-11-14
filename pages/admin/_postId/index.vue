@@ -17,11 +17,7 @@ export default {
   async asyncData({ $axios, params }) {
     //firebase request have to end by '.json'
     return $axios
-      .get(
-        "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
-          params.postId +
-          ".json"
-      )
+      .get(process.env.baseUrl + "/posts/" + params.postId + ".json")
       .then((res) => {
         // Add ID from firebase for feture updates
         return {

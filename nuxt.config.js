@@ -1,6 +1,6 @@
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'static',
+  target: 'server',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -18,6 +18,11 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
 	  { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Acme&display=swap' },
     ]
+  },
+
+  loading:{
+	color: '#98c223',
+	height: '5px',
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -42,5 +47,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
-  }
+  },
+
+  env: {
+	baseUrl: process.env.BASE_URL || 'https://nuxt-blog-dffff-default-rtdb.firebaseio.com/'
+  },
 }
