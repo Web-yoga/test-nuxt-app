@@ -17,20 +17,32 @@ export default {
   async asyncData({ $axios, params }) {
     //firebase request have to end by '.json'
     return $axios
-      .get(process.env.baseUrl + "/posts/" + params.postId + ".json")
-      .then((res) => {
-        // Add ID from firebase for feture updates
+      .$get(
+        "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+          params.postId +
+          ".json"
+      )
+      .then((data) => {
         return {
-          loadedPost: { ...res.data, id: params.postId },
+          loadedPost: data,
         };
       })
       .catch((e) => context.error(e));
   },
   methods: {
     onSubmitted(editedPost) {
-      this.$store.dispatch("editPost", editedPost).then(() => {
-        this.$router.push("/admin");
-      });
+      $axios
+        .$put(
+          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+            params.postId +
+            ".json"
+        )
+        .then((data) => {
+          return {
+            loadedPost: data,
+          };
+        })
+        .catch((e) => context.error(e));
     },
   },
 };

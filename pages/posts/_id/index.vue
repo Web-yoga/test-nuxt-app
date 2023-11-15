@@ -4,7 +4,7 @@
       <h1 class="post-title">{{ loadedPost.title }}</h1>
       <div class="post-details">
         <div class="post-detail">
-          Last updated on {{ loadedPost.updatedDate | date }}
+          Last updated on {{ loadedPost.updatedDate }}
         </div>
         <div class="post-detail">Written by {{ loadedPost.author }}</div>
       </div>
@@ -26,10 +26,14 @@ export default {
   async asyncData({ $axios, params }) {
     //firebase request have to end by '.json'
     return $axios
-      .get(process.env.baseUrl + "/posts/" + params.id + ".json")
-      .then((res) => {
+      .$get(
+        "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
+          params.id +
+          ".json"
+      )
+      .then((data) => {
         return {
-          loadedPost: res.data,
+          loadedPost: data,
         };
       })
       .catch((e) => context.error(e));
