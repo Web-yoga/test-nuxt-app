@@ -14,35 +14,23 @@ export default {
   components: {
     AdminPostForm,
   },
-  async asyncData({ $axios, params }) {
+  async asyncData(context) {
     //firebase request have to end by '.json'
-    return $axios
-      .$get(
-        "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
-          params.postId +
-          ".json"
-      )
+    return context.$axios
+      .$get(process.env.baseUrl + "/posts/" + context.params.postId + ".json")
       .then((data) => {
         return {
-          loadedPost: data,
+          //ADD post ID to post data
+          loadedPost: { ...data, id: context.params.postId },
         };
       })
       .catch((e) => context.error(e));
   },
   methods: {
     onSubmitted(editedPost) {
-      $axios
-        .$put(
-          "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
-            params.postId +
-            ".json"
-        )
-        .then((data) => {
-          return {
-            loadedPost: data,
-          };
-        })
-        .catch((e) => context.error(e));
+      this.$store.dispatch("editPost", editedPost).then(() => {
+        this.$router.push("/admin");
+      });
     },
   },
 };

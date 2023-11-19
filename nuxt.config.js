@@ -53,7 +53,8 @@ export default {
   },
 
   env: {
-	baseUrl: process.env.BASE_URL || 'https://nuxt-blog-dffff-default-rtdb.firebaseio.com/'
+	baseUrl: process.env.BASE_URL || 'https://nuxt-blog-dffff-default-rtdb.firebaseio.com',
+	fireBaseAPIKey: 'AIzaSyBV-8H8j2rC3JKm5VKtOpnQK3FyENsEUAs'
   },
 
   transition: {
