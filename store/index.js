@@ -1,4 +1,5 @@
 import Vuex from "vuex";
+import Cookie from 'js-cookie';
 
 const createStore = () => {
   return new Vuex.Store({
@@ -98,24 +99,50 @@ const createStore = () => {
               "tokenExpiration",
               new Date().getTime() + result.expiresIn * 1000
             );
-            vuexContext.dispatch("setLogoutTimer", result.expiresIn * 1000);
+			Cookie.set('token', result.idToken);
+			Cookie.set('expirationDate', new Date().getTime() + result.expiresIn * 1000);
           })
           .catch(e => console.log(e));
       },
-      setLogoutTimer(vuexContext, duration) {
-        setTimeout(() => {
-          vuexContext.commit("clearToken");
-        }, duration);
-      },
-      initAuth(vuexContext) {
-        const token = localStorage.getItem("token");
-        const expirationDate = localStorage.getItem("tokenExpiration");
-
+      initAuth(vuexContext, req) {
+        let token;
+        let expirationDate;
+		// req - normal node.js request; req.headers.cookie - cookie header
+        if (req) {
+          if (!req.headers.cookie) {
+            return;
+          }
+          const tokenCookie = req.headers.cookie
+            .split(";")
+            .find(c => c.trim().startsWith("token="));
+          if (!tokenCookie) {
+            return;
+          }
+          token = tokenCookie.split("=")[1];
+          expirationDate = req.headers.cookie
+            .split(";")
+            .find(c => c.trim().startsWith("expirationDate="))
+            .split("=")[1];
+        } else {
+          token = localStorage.getItem("token");
+          expirationDate = localStorage.getItem("tokenExpiration");
+        }
         if (new Date().getTime() > +expirationDate || !token) {
+          console.log("No token or invalid token");
+		  //vuexContext.commit('clearToken');
+          vuexContext.dispatch("logout");
           return;
         }
-        vuexContext.dispatch('setLogoutTimer', +expirationDate - new Date().getTime());
         vuexContext.commit("setToken", token);
+      },
+	  logout(vuexContext) {
+        vuexContext.commit("clearToken");
+        Cookie.remove("token");
+        Cookie.remove("expirationDate");
+        if (process.client) {
+          localStorage.removeItem("token");
+          localStorage.removeItem("tokenExpiration");
+        }
       },
     },
     getters: {
