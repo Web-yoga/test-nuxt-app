@@ -101,6 +101,8 @@ const createStore = () => {
             );
 			Cookie.set('token', result.idToken);
 			Cookie.set('expirationDate', new Date().getTime() + result.expiresIn * 1000);
+
+			return this.$axios.$post('http://localhost:3000/api/track-data',{data: `Register email: ${authData.email}`})
           })
           .catch(e => console.log(e));
       },
