@@ -23,12 +23,18 @@
 export default {
   // asyncData(context);  context = { $axios, params, ... }
   // https://v2.nuxt.com/docs/internals-glossary/context/#params
-  async asyncData({ $axios, params }) {
+  async asyncData(context) {
+    //static pages generation payload access
+    if (context.payload) {
+      return {
+        loadedPost: context.payload.postData,
+      };
+    }
     //firebase request have to end by '.json'
-    return $axios
+    return context.$axios
       .$get(
         "https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts/" +
-          params.id +
+          context.params.id +
           ".json"
       )
       .then((data) => {

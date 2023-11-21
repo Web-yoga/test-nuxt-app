@@ -125,10 +125,15 @@ const createStore = () => {
             .split(";")
             .find(c => c.trim().startsWith("expirationDate="))
             .split("=")[1];
-        } else {
+        } else if (process.client) {
+			//if not server rendering => use local storage
           token = localStorage.getItem("token");
           expirationDate = localStorage.getItem("tokenExpiration");
-        }
+        }else {
+			//static page genetation
+			token = null;
+			expirationDate = null;
+		}
         if (new Date().getTime() > +expirationDate || !token) {
           console.log("No token or invalid token");
 		  //vuexContext.commit('clearToken');

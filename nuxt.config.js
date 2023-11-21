@@ -1,8 +1,9 @@
 const bodyParser = require('body-parser')
+const axios = require('axios')
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
-  target: 'server',
+  target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -67,5 +68,24 @@ export default {
 serverMiddleware: [
 	bodyParser.json(),
 	'~/api'
-]
+],
+generate: {
+	//роуты для генерации динамических страниц (если static)
+    routes: function() {
+		//Возвращает массив динамических страниц для генерации
+      return axios
+        .get("https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json")
+        .then(res => {
+          const routes = [];
+          for (const key in res.data) {
+			//формируем роуты из id страниц, которое приходит как key и динамич данных
+            routes.push({
+              route: "/posts/" + key,
+              payload: {postData: res.data[key]}
+            });
+          }
+          return routes;
+        });
+    }
+  },
 }
