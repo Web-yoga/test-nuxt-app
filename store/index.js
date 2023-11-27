@@ -29,6 +29,8 @@ const createStore = () => {
     },
     actions: {
       nuxtServerInit(vuexContext, context) {
+		///posts.json?startAt=1&endAt=3
+		//https://nuxt-blog-dffff-default-rtdb.firebaseio.com/posts.json?orderBy=%22updatedDate%22&startAt=1&print=pretty
         return this.$axios.$get(process.env.baseUrl + '/posts.json')
 		.then(data => {
 			// From firebase come object => transform to array
