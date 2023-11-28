@@ -8,8 +8,8 @@
 
 <script>
 export default {
-  name: 'AppSpinner',
-}
+  name: "AppSpinner",
+};
 </script>
 <style scoped>
 .lds-facebook {
@@ -25,7 +25,7 @@ export default {
   position: absolute;
   left: 8px;
   width: 16px;
-  background: var(--primary);
+  background-color: #000;
   border-radius: 5px;
   animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }

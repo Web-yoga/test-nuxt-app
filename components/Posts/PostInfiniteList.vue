@@ -1,6 +1,7 @@
 <template>
-  <div class="row list" ref="scrollComponent" v-if="items">
+  <div class="row list" v-if="list">
     <section class="post-list">
+      <!--
       <PostPreview
         v-for="post in items"
         :key="post.id"
@@ -10,20 +11,20 @@
         :previewText="post.previewText"
         :thumbnail="post.thumbnail"
       />
-      <infinite-loading
-        v-if="items.length"
-        spinner="bubbles"
-        @infinite="infiniteScroll"
-      ></infinite-loading>
+	  -->
+      <div v-for="(item, $index) in list" :key="$index" :data-num="$index + 1">
+        <p>post</p>
+        <p>{$index}</p>
+      </div>
+      <client-only>
+        <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      </client-only>
     </section>
-    <div v-show="isLoading">
-      <app-spinner />
-    </div>
   </div>
 </template>
 
 <script>
-import { ref, toRefs, onMounted, onUnmounted } from "vue";
+import InfiniteLoading from "vue-infinite-loading";
 import PostPreview from "@/components/Posts/PostPreview";
 import AppSpinner from "@/components/AppSpinner";
 
@@ -32,34 +33,64 @@ export default {
   components: {
     PostPreview,
     AppSpinner,
+    InfiniteLoading,
   },
   data() {
     return {
-      items: [],
+      list: [],
       page: 1,
+      countItemsOnPage: 3,
     };
   },
-  computed: {
-    url() {
-      return "https://jsonplaceholder.typicode.com/photos?_page=" + this.page;
+  methods: {
+    async getPostsByPage() {
+      /** SIMULATION PAGE from firebase for TEST */
+      const data = await this.$axios.$get(process.env.baseUrl + "/posts.json");
+      const pastsArray = [];
+      for (const key in data) {
+        pastsArray.push({ ...data[key], id: key });
+      }
+
+      const pageItems = pastsArray.slice(
+        this.page * this.countItemsOnPage - this.countItemsOnPage,
+        this.page * this.countItemsOnPage
+      );
+      console.log("pastsArray");
+      console.log(pageItems);
+      return pageItems;
     },
-  },
-  created() {
-    this.getPhotos();
+    infiniteHandler($state) {
+      axios
+        .get(process.env.baseUrl + "/posts.json")
+        .then(({ data }) => {
+          /** SIMULATION PAGE from firebase for TEST */
+          const pastsArray = [];
+          for (const key in data) {
+            pastsArray.push({ ...data[key], id: key });
+          }
+          const pageItems = pastsArray.slice(
+            this.page * this.countItemsOnPage - this.countItemsOnPage,
+            this.page * this.countItemsOnPage
+          );
+          console.log("pastsArray");
+          console.log(pageItems);
+          return pageItems;
+        })
+        .then(({ data }) => {
+          if (data.length) {
+            this.page += 1;
+            this.list.push(...data);
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        });
+    },
   },
   props: {
-    limit: {
-      type: Number,
-      default: 3,
-    },
-    filter: {
-      type: Object,
-      required: true,
-    },
-    collection: {
-      type: String,
-      default: "articles",
-      /** articles | youbube */
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
   },
 };

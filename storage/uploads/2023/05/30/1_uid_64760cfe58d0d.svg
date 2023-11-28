@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.29 94.55">
+  <defs>
+    <style>.cls-1{isolation:isolate;}.cls-2{fill:#fff;}.cls-3{fill:#e9c671;}.cls-4{fill:#d9a458;}.cls-11,.cls-5,.cls-7{fill:#82b7d9;mix-blend-mode:multiply;}.cls-5{opacity:0.4;}.cls-6{fill:#83838a;}.cls-7{opacity:0.83;}.cls-8{fill:#94c9e2;}.cls-9{fill:#abd3e9;}.cls-10{fill:#8dc7ed;}.cls-11{opacity:0.41;}.cls-12{fill:#7aa7c5;}</style>
+  </defs>
+  <g class="cls-1">
+    <g id="Слой_2" data-name="Слой 2">
+      <g id="Слой_1-2" data-name="Слой 1">
+        <path class="cls-2" d="M86.27,11.36l-81.18.22,8.53,72.47c.64,5.84,14.61,10.5,31.75,10.5,16.9,0,30.72-4.53,31.72-10.25h0Z"></path>
+        <path class="cls-3" d="M15,43.9s-.64-13.29,10.16-8.41,11.2,21,6.82,22.39S17.35,60.56,15,43.9Z"></path>
+        <circle class="cls-4" cx="27.14" cy="49.02" r="1.51"></circle>
+        <circle class="cls-4" cx="20.47" cy="46.52" r="1.51"></circle>
+        <circle class="cls-4" cx="22.51" cy="51.9" r="0.76"></circle>
+        <path class="cls-3" d="M31.24,41.36s1.24-7.94,7.81-9.63,19.11,3.35,20.5,4.82,11.34,9.62,14.33,18.57,0,22.09-17.51,11.54S32.18,52.87,31.24,41.36Z"></path>
+        <circle class="cls-4" cx="44.82" cy="49.14" r="1.51"></circle>
+        <circle class="cls-4" cx="51.55" cy="53.68" r="1.51"></circle>
+        <circle class="cls-4" cx="46.33" cy="55.19" r="1.27"></circle>
+        <circle class="cls-4" cx="51.55" cy="59.2" r="0.76"></circle>
+        <path class="cls-3" d="M26,79.66a7.88,7.88,0,0,1-5.63-.87c-1.94-1.16-3.84-3.51-2.94-8.17C19,62,29.09,54.79,33.56,53.83s13.23-3.36,12,8.18C44.48,72.23,32.66,78.34,26,79.66Z"></path>
+        <circle class="cls-4" cx="37.06" cy="67.12" r="1.51"></circle>
+        <circle class="cls-4" cx="33.44" cy="66.17" r="0.76"></circle>
+        <circle class="cls-4" cx="32.86" cy="70.7" r="0.76"></circle>
+        <circle class="cls-4" cx="27.97" cy="74.39" r="1.51"></circle>
+        <path class="cls-5" d="M85.78,11.2l-81.17.23,8.52,72.46c.65,5.84,14.62,10.5,31.76,10.5,16.9,0,30.72-4.53,31.72-10.25h0Z"></path>
+        <ellipse class="cls-6" cx="44.65" cy="9.68" rx="40.04" ry="7.89"></ellipse>
+        <path class="cls-7" d="M44.65,0C20,0,0,4.78,0,10.68v6.68c0,5.9,20,10.69,44.65,10.69s44.64-4.79,44.64-10.69V10.68C89.29,4.78,69.31,0,44.65,0Z"></path>
+        <ellipse class="cls-8" cx="44.65" cy="9.68" rx="40.04" ry="7.89"></ellipse>
+        <ellipse class="cls-9" cx="39.43" cy="11.43" rx="34.82" ry="5.12"></ellipse>
+        <ellipse class="cls-10" cx="44.88" cy="85.1" rx="31.75" ry="9.29"></ellipse>
+        <path class="cls-3" d="M37.46,68.46s-6.17-2.19-8.76-3.18-7.86.69-8.36,4.48,1.79,14.82,11.05,18.11,11.24,1.59,13.23,1.49S48.7,85.68,52,85.87s3.78.5,5.28.1,7.16-1.19,7.66-6.56S62.81,64.16,50.29,66.17C44.33,67.13,43.13,71.05,37.46,68.46Z"></path>
+        <ellipse class="cls-4" cx="52.83" cy="75.63" rx="1.64" ry="0.8"></ellipse>
+        <ellipse class="cls-4" cx="42.78" cy="81.05" rx="2.04" ry="0.85"></ellipse>
+        <ellipse class="cls-4" cx="31.09" cy="76.13" rx="2.09" ry="1.3"></ellipse>
+        <path class="cls-11" d="M44.68,35.94C29.45,36.23,16.14,34.23,9.13,31l8,53.18c.69,5.3,13.47,9.29,29.07,9,15.37-.29,27.86-4.66,28.67-9.88h0l5.73-54C73.94,33,60.38,35.64,44.68,35.94Z"></path>
+        <path class="cls-12" d="M45.26,58.48c-22.49.2-41-18.72-42.07-42.61,0,.64,0,1.27,0,1.91C3.41,44.53,22.29,66,45.33,65.83S86.85,43.75,86.6,17c0-.64,0-1.28-.06-1.91C85.9,39,67.75,58.27,45.26,58.48Z"></path>
+      </g>
+    </g>
+  </g>
+</svg>

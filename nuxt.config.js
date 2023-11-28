@@ -3,6 +3,7 @@ const axios = require('axios')
 
 export default {
   // Target: https://go.nuxtjs.dev/config-target
+  //server | static
   target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
@@ -30,6 +31,7 @@ export default {
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+	'bootstrap/dist/css/bootstrap.css',
 	'~assets/css/main.css'
   ],
 
